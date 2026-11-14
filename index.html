@@ -1,418 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Justin To — Accounting, Operations & Builder</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #fafaf8;
-      --surface: #ffffff;
-      --surface-subtle: #f3f3ef;
-      --text: #141715;
-      --text-muted: #525954;
-      --accent: #184d37;
-      --accent-soft: #e7f0ec;
-      --border: #e4e5e0;
-      --radius: 14px;
-      --max-w: 980px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Navigation */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(250, 250, 248, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 68px;
-    }
-
-    .brand {
-      font-weight: 800;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-
-    nav {
-      display: flex;
-      gap: 28px;
-      font-size: 0.925rem;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    nav a {
-      transition: color 0.18s ease;
-    }
-
-    nav a:hover {
-      color: var(--text);
-    }
-
-    /* Hero */
-    .hero {
-      padding: 88px 0 72px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.35rem, 5vw, 3.6rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.035em;
-      max-width: 18ch;
-      margin-bottom: 22px;
-    }
-
-    .hero p {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      max-width: 58ch;
-      margin-bottom: 34px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 13px 24px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-      cursor: pointer;
-    }
-
-    .btn:active {
-      transform: translateY(1px);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: #123b2a;
-    }
-
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: var(--surface-subtle);
-    }
-
-    /* Sections */
-    section {
-      padding: 72px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    section:last-of-type {
-      border-bottom: none;
-    }
-
-    .section-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-size: 1.85rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      margin-bottom: 36px;
-    }
-
-    /* Experience & Ventures Grid */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: #c9cdc6;
-      box-shadow: 0 8px 24px rgba(20, 23, 21, 0.04);
-    }
-
-    .card-meta {
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.96rem;
-      margin-bottom: 20px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: var(--surface-subtle);
-      color: var(--text-muted);
-      padding: 4px 10px;
-      border-radius: 6px;
-    }
-
-    /* Capabilities */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .pillar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-
-    .pillar h4 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .pillar p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-    }
-
-    /* Beyond the Desk */
-    .interests-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .interest-item {
-      background: var(--surface-subtle);
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .interest-item strong {
-      display: block;
-      font-size: 0.98rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .interest-item span {
-      font-size: 0.86rem;
-      color: var(--text-muted);
-      display: block;
-    }
-
-    /* Contact / Footer */
-    .contact-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .contact-box h2 {
-      font-size: 1.65rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-
-    .contact-box p {
-      color: var(--text-muted);
-      max-width: 46ch;
-    }
-
-    footer {
-      padding: 32px 0 48px;
-      color: var(--text-muted);
-      font-size: 0.875rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    @media (max-width: 820px) {
-      .grid-2,
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-
-      .interests-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .contact-box {
-        padding: 32px 24px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      nav {
-        gap: 16px;
-        font-size: 0.85rem;
-      }
-
-      .hero {
-        padding: 64px 0 56px;
-      }
-
-      .interests-list {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="container nav-inner">
-      <a href="#" class="brand">
-        <span class="brand-dot"></span>
-        Justin To
-      </a>
-      <nav>
-        <a href="#work">Work</a>
-        <a href="#skills">Focus</a>
-        <a href="#interests">Interests</a>
-        <a href="#contact">Contact</a>
-      </nav>
+<main id="main">
+  <div class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> A personal space for big ideas</div>
+      <h1>Curiosity.<br>Connection.<br><em>Real impact.</em></h1>
+      <p class="intro">Welcome to Exind. My space to explore engineering, medicine, and agriculture—and the possibilities where they meet.</p>
+      <a class="button" href="#explore">Explore my interests <span aria-hidden="true">↗</span></a>
     </div>
-  </header>
+    <div class="hero-art">
+      <svg viewBox="0 0 520 520" role="img" aria-labelledby="art-title">
+        <title id="art-title">An abstract living landscape connecting engineering, medicine, and agriculture</title>
+        <defs>
+          <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+            <path d="M32 0H0V32" fill="none" stroke="#254d3c" stroke-width=".7"/>
+          </pattern>
+          <clipPath id="round"><rect width="520" height="520" rx="260"/></clipPath>
+          <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#e5f5a6"/><stop offset="1" stop-color="#96bc67"/>
+          </linearGradient>
+        </defs>
+        <g clip-path="url(#round)">
+          <rect width="520" height="520" fill="#173e32"/>
+          <rect width="520" height="520" fill="url(#grid)"/>
+          <circle cx="260" cy="260" r="211" fill="none" stroke="#5c7950" stroke-dasharray="3 7"/>
+          <circle cx="260" cy="260" r="155" fill="none" stroke="#4e6d4b"/>
+          <path d="M-30 422Q180 211 550 332V550H-30Z" fill="#668450"/>
+          <path d="M-40 457Q210 251 560 378M-40 479Q210 273 560 400M-40 501Q210 295 560 422M-40 523Q210 317 560 444M-40 545Q210 339 560 466M-40 567Q210 361 560 488" fill="none" stroke="#9ab56c" stroke-width="2"/>
+          <circle cx="366" cy="134" r="49" fill="#df744c"/>
+          <path d="M260 385V229" stroke="#d5ed84" stroke-width="5"/>
+          <path d="M258 281C173 282 133 224 141 156C214 151 265 204 258 281Z" fill="url(#leaf)"/>
+          <path d="M263 238C257 165 309 113 375 112C379 182 334 236 263 238Z" fill="#d5ed84"/>
+          <path d="M158 176L258 280M263 238L354 133" stroke="#5b8050" stroke-width="1.5"/>
+          <path d="M181 199L180 169M205 225L204 181M228 250L227 205M288 211L320 211M311 185L343 184M333 159L358 158" stroke="#5b8050" stroke-width="1"/>
+          <circle cx="130" cy="337" r="44" fill="#f6f4eb"/>
+          <path d="M122 315H138V329H152V345H138V359H122V345H108V329H122Z" fill="#173e32"/>
+          <g transform="translate(388 292)" fill="none" stroke="#e8efc8">
+            <path d="M-25-15L0-30L25-15V15L0 30L-25 15Z" stroke-width="2"/>
+            <path d="M-25-15L0 0L25-15M0 0V30"/>
+          </g>
+          <path d="M130 292V267H202M303 237H388V262" fill="none" stroke="#e1e9bb" stroke-dasharray="4 5"/>
+          <circle cx="260" cy="385" r="7" fill="#d5ed84"/>
+          <path d="M85 105H105M95 95V115M419 213H433M426 206V220" stroke="#cbdca3"/>
+        </g>
+      </svg>
+      <div class="art-caption"><span>FIG. 01 — EVERYTHING IS CONNECTED</span><span>EXIND / IDEAS</span></div>
+    </div>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="badge">San Luis Obispo & Ventura County, CA</div>
-        <h1>Building small businesses, clean books, and practical tools.</h1>
-        <p>
-          I’m Justin To—an Accounting & Business Administration student at Cal Poly San Luis Obispo and co-owner of Groovy Detailing LLC. I bridge financial rigor with hands-on operations and modern web workflows.
-        </p>
-        <div class="hero-actions">
-          <a href="#work" class="btn btn-primary">Explore My Work</a>
-          <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-        </div>
+  <div class="disciplines" aria-label="Areas of interest">
+    <span class="label">Three fields. One curiosity.</span>
+    <span>Engineering</span><i aria-hidden="true">✳</i>
+    <span>Medicine</span><i aria-hidden="true">✳</i>
+    <span>Agriculture</span>
+  </div>
+
+  <section id="explore" aria-labelledby="explore-heading">
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">01 / Areas of interest</div>
+        <h2>Different fields.<br>Shared possibilities.</h2>
       </div>
-    </section>
+      <p>How we build, how we care, and how we grow. Three ways to ask what a better future could look like.</p>
+    </div>
 
-    <section id="work">
-      <div class="container">
-        <div class="section-
+    <div class="cards">
+      <article class="card">
+        <div class="card-top"><span>01 — BUILD</span><span aria-hidden="true">↗</span></div>
+        <svg class="card-art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+          <ellipse cx="140" cy="150" rx="90" ry="13" fill="#d8ddce"/>
+          <g stroke="#173e32" stroke-width="1.5">
+            <path d="M65 60L140 20L215 60V119L140 160L65 119Z"/>
+            <path d="M65 60L140 101L215 60M140 101V160M140 20V78M89 47L165 88V146M114 34L190 74V133M90 74L165 34M115 88L190 47M65 80L140 121L215 80M65 100L140 141L215 100"/>
+          </g>
+          <path d="M140 20L165 34L90 74L65 60Z" fill="#d5ed84" stroke="#173e32" stroke-width="1.5"/>
+        </svg>
+        <h3>Engineering</h3>
+        <p>Exploring how thoughtful design and practical problem-solving turn an idea into something useful.</p>
+        <span class="tag">SYSTEMS · DESIGN · MAKING</span>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span>02 — CARE</span><span aria-hidden="true">↗</span></div>
+        <svg class="card-art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+          <circle cx="140" cy="90" r="65" stroke="#c3b9a9"/>
+          <circle cx="140" cy="90" r="48" stroke="#c3b9a9" stroke-dasharray="3 5"/>
+          <path d="M123 41H157V73H189V107H157V139H123V107H91V73H123Z" fill="#df744c"/>
+          <path d="M42 91H109L124 75L140 108L155 88H238" stroke="#173e32" stroke-width="2"/>
+          <circle cx="42" cy="91" r="4" fill="#173e32"/><circle cx="238" cy="88" r="4" fill="#173e32"/>
+        </svg>
+        <h3>Medicine</h3>
+        <p>Learning about the intersection of science, technology, and the human experience of health.</p>
+        <span class="tag">HEALTH · SCIENCE · HUMANITY</span>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span>03 — GROW</span><span aria-hidden="true">↗</span></div>
+        <svg class="card-art" viewBox="0 0 280 180" fill="none" aria-hidden="true">
+          <path d="M38 135Q140 97 242 135M38 147Q140 109 242 147M38 159Q140 121 242 159" stroke="#82936c" stroke-width="1.5"/>
+          <path d="M140 130V53" stroke="#173e32" stroke-width="2"/>
+          <path d="M139 99C99 100 81 76 83 47C117 47 140 66 139 99Z" fill="#8fa76b" stroke="#173e32" stroke-width="1.5"/>
+          <path d="M141 77C141 44 164 23 196 24C196 57 174 78 141 77Z" fill="#c6dd8d" stroke="#173e32" stroke-width="1.5"/>
+          <path d="M94 58L140 100M141 77L185 35" stroke="#173e32"/>
+          <circle cx="64" cy="30" r="9" fill="#df744c"/>
+        </svg>
+        <h3>Agriculture</h3>
+        <p>Looking at the relationship between land, food, and technology—and how we can grow with care.</p>
+        <span class="tag">FOOD · NATURE · RESILIENCE</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="about-heading">
+    <div class="eyebrow"><span class="dot"></span> 02 / Behind Exind</div>
+    <div>
+      <h2>A place to connect the dots.<br>And keep asking questions.</h2>
+      <p>Exind is my personal space for exploring interests that don’t fit neatly into one box. I’m drawn to the way engineering, medicine, and agriculture each approach a shared challenge: improving everyday life.</p>
+      <p>This is a starting point for ideas, learning, and conversations across those fields. The question at the center of it all: what becomes possible when we learn from each other?</p>
+    </div>
+  </section>
+
+  <section class="notes" id="notes" aria-labelledby="notes-heading">
+    <div class="eyebrow">03 / Field notes</div>
+    <h2>Questions worth exploring.</h2>
+    <details>
+      <summary><span class="number">01</span>What makes a design useful in the real world?</summary>
+      <p>A good starting point is the person who will use it. What do they need? What gets in their way? I’m interested in how observation, simple prototypes, and feedback can shape more practical engineering ideas.</p>
+    </details>
+    <details>
+      <summary><span class="number">02</span>How can technology support more human care?</summary>
+      <p>New tools raise questions beyond what is technically possible. Accessibility, clarity, and the experiences of patients and care teams are all directions I want to explore when thinking about technology in medicine.</p>
+    </details>
+    <details>
+      <summary><span class="number">03</span>What can engineering learn from the natural world?</summary>
+      <p>Agriculture invites us to think in connected systems: soil, water, plants, climate, and people. I’m curious about designs that work with those relationships and respond to the realities of a particular place.</p>
+    </details>
+  </section>
+
+  <section class="closing" aria-labelledby="closing-heading">
+    <div>
+      <div class="eyebrow">Stay curious. Think across boundaries.</div>
+      <h2>Better questions.<br>New possibilities.</h2>
+    </div>
+    <a class="button" href="#explore">Find your starting point <span aria-hidden="true">↗</span></a>
+  </section>
+</main>
+
+<footer>
+  <a class="brand" href="#top" aria-label="Exind home">exind.</a>
+  <p>A personal exploration of engineering, medicine &amp; agriculture.</p>
+  <a href="#top">Back to top ↑</a>
+</footer>
